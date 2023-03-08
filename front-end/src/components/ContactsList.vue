@@ -22,7 +22,7 @@
       >
       <BaseButton @click="showForm">Aggiungi</BaseButton>
     </div>
-    <ContactForm v-if="contactsStore.formIsVisible"
+    <ContactForm style="margin: 0 auto" v-if="contactsStore.formIsVisible"
       >Form aggiunta contatto</ContactForm
     >
     <div v-if="contactsStore.isLoading">
@@ -69,11 +69,14 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
 }
 
 .controls {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 h4 {
