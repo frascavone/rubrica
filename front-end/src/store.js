@@ -10,6 +10,7 @@ export const useContactsStore = defineStore('contacts', {
     error: null,
     contactAdded: false,
     contactUpdated: false,
+    contactDeleted: false,
     formIsVisible: false,
   }),
   actions: {
@@ -33,7 +34,7 @@ export const useContactsStore = defineStore('contacts', {
             firstName: users[key].firstName,
             lastName: users[key].lastName,
             username: users[key].username,
-            email: users[key].email,
+            email: users[key].email.toLowerCase(),
             phone: users[key].phone,
             avatar: users[key].avatar,
           };
@@ -50,19 +51,23 @@ export const useContactsStore = defineStore('contacts', {
         firstName: formData.firstName,
         lastName: formData.lastName,
         username: `${formData.firstName} ${formData.lastName}`,
-        email: formData.email,
+        email: formData.email.toLowerCase(),
         phone: `+39 ${formData.phone.toString()}`,
         avatar:
           'https://lh3.googleusercontent.com/TWVQZDj8WCdDcnyvvxFeEH0nJiGod_gTmPyQsMXZhFNEDdJXW2NtgIRrEfSEPn1H9CMvSZpjN41a8Qinq14I7wwgqOUjOay2f_yxOBM',
       };
-      const res = await fetch(`http://localhost:3000/users`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(contactData),
-      });
-      if (!res.ok) {
-        const error = new Error(data.message || 'Caricamento dati fallito');
-        throw error;
+      try {
+        const res = await fetch(`http://localhost:3000/users`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(contactData),
+        });
+        if (!res.ok) {
+          const error = new Error(data.message);
+          throw error;
+        }
+      } catch (error) {
+        this.$state.error = error.message;
       }
 
       this.loadContacts();
@@ -70,29 +75,53 @@ export const useContactsStore = defineStore('contacts', {
     },
     async deleteContact(contactId) {
       // DELETE request to http://localhost:3000/api/users/ contactId ...
-      const res = await fetch(`http://localhost:3000/users/${contactId}`, {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-      });
-      if (!res.ok) return;
+      try {
+        const res = await fetch(`http://localhost:3000/users/${contactId}`, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+        });
+        if (!res.ok) {
+          const error = new Error(data.message);
+          throw error;
+        }
+      } catch (error) {
+        this.$state.error = error.message;
+      }
       const selectedContactIndex = this.$state.contacts.findIndex(
         (el) => el.id === contactId
       );
       this.$state.contacts.splice(selectedContactIndex, 1);
       router.replace('/users');
+      this.$state.contactDeleted = true;
+      setTimeout(() => {
+        this.$state.contactDeleted = false;
+      }, 5000);
       this.loadContacts();
     },
     async updateContact(formData) {
       // PATCH request to http://localhost:3000/api/users/contactId ...
 
-      const changes = { email: formData.email, phone: formData.phone };
-
-      const res = await fetch(`http://localhost:3000/users/${formData.id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(changes),
-      });
-      if (!res.ok) return;
+      const changes = {
+        email: formData.email.toLowerCase(),
+        phone: formData.phone.toString(),
+      };
+      try {
+        const res = await fetch(`http://localhost:3000/users/${formData.id}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(changes),
+        });
+        if (!res.ok) {
+          const error = new Error(data.message);
+          throw error;
+        }
+      } catch (error) {
+        this.$state.error = error.message;
+      }
+      this.$state.contactUpdated = true;
+      setTimeout(() => {
+        this.$state.contactUpdated = false;
+      }, 5000);
       this.loadContacts();
       router.replace('/users');
     },

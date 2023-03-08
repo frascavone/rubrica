@@ -105,7 +105,7 @@ const submitForm = (data) => {
   contactsStore.contactAdded = true;
   setTimeout(() => {
     contactsStore.contactAdded = false;
-  }, 3000);
+  }, 5000);
 };
 </script>
 

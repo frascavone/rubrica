@@ -13,10 +13,10 @@ html {
   font-size: 62.5%;
 }
 body {
-  background-color: #ccc;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #ccc;
 }
 #app {
   font-size: 1.25rem;

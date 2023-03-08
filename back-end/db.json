@@ -1,16 +1,6 @@
 {
   "users": [
     {
-      "id": "b34e5806-00e3-4a82-bf6c-0e25199f8b47",
-      "firstName": "Darla",
-      "lastName": "Harber",
-      "username": "Darla Harber",
-      "email": "Darla.Harber@yahoo.com",
-      "phone": "+39 109 156 2948",
-      "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1212.jpg",
-      "sex": "female"
-    },
-    {
       "id": "e03685ab-7101-42f2-a591-c98397c7b00c",
       "firstName": "Joseph",
       "lastName": "Christiansen",
@@ -51,16 +41,6 @@
       "sex": "male"
     },
     {
-      "id": "ba75d874-d327-4475-988f-3480a58de147",
-      "firstName": "Fredrick",
-      "lastName": "Carroll",
-      "username": "Fredrick Carroll",
-      "email": "Fredrick.Carroll17@hotmail.com",
-      "phone": "+39 974 454 9808",
-      "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/204.jpg",
-      "sex": "male"
-    },
-    {
       "id": "8370e021-cb75-4d9c-acf2-1b403b4bb37d",
       "firstName": "Camille",
       "lastName": "Gislason",
@@ -85,8 +65,8 @@
       "firstName": "Jeannette",
       "lastName": "Kassulke",
       "username": "Jeannette Kassulke",
-      "email": "Jeannette.Kassulke@hotmail.com",
-      "phone": "+39 447 363 5486",
+      "email": "test@test.it",
+      "phone": "+39 2345677889",
       "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/280.jpg",
       "sex": "female"
     },
@@ -271,16 +251,6 @@
       "sex": "male"
     },
     {
-      "id": "ef88e873-2a5f-4c06-918f-5fd92375f8b3",
-      "firstName": "Betsy",
-      "lastName": "Senger",
-      "username": "Betsy Senger",
-      "email": "Betsy_Senger78@gmail.com",
-      "phone": "+39 765 524 8507",
-      "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/158.jpg",
-      "sex": "female"
-    },
-    {
       "id": "2effc862-2091-433b-b798-c3ad1f3188a7",
       "firstName": "Dallas",
       "lastName": "Cartwright",
@@ -409,16 +379,6 @@
       "phone": "+39 795 306 3064",
       "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/857.jpg",
       "sex": "male"
-    },
-    {
-      "id": "bc3c5716-2018-41d1-905b-140d7513c5dd",
-      "firstName": "Natasha",
-      "lastName": "Franecki",
-      "username": "Natasha Franecki",
-      "email": "Natasha.Franecki@gmail.com",
-      "phone": "+39 286 800 2073",
-      "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1207.jpg",
-      "sex": "female"
     },
     {
       "id": "472c906c-b4c4-435d-acf4-da8d363b9290",

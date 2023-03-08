@@ -1,6 +1,8 @@
 <template>
   <h4 v-if="contactsStore.contactAdded">Contatto aggiunto correttamente</h4>
   <h4 v-if="contactsStore.contactUpdated">Contatto modificato correttamente</h4>
+  <h4 v-if="contactsStore.contactDeleted">Contatto eliminato correttamente</h4>
+
   <BaseDialog
     :show="!!contactsStore.error"
     title="ERRORE!"
@@ -28,7 +30,7 @@
     <div v-if="contactsStore.isLoading">
       <BaseSpinner />
     </div>
-    <ul v-else-if="contactsStore.hasContacts">
+    <ul class="contact-list" v-else-if="contactsStore.hasContacts">
       <ContactItem
         v-for="contact in contactsStore.contacts"
         :key="contact.id"
@@ -65,13 +67,28 @@ const showForm = () => {
 </script>
 
 <style scoped>
-ul {
+.contact-list {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
+}
+@media screen and (max-width: 34.06rem) {
+  .contact-list {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+@media screen and (max-width: 83.11rem) and (min-width: 50.31rem) {
+  .contact-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media screen and (min-width: 83.12rem) {
+  .contact-list {
+    grid-template-columns: repeat(5, 1fr);
+  }
 }
 
 .controls {

@@ -1,6 +1,6 @@
 <template>
-  <BaseCard>
-    <div class="contact">
+  <div class="contact">
+    <BaseCard>
       <div
         :style="{ backgroundImage: `url(${selectedContact.avatar})` }"
         class="contact__photo"
@@ -13,7 +13,7 @@
           submitForm({
             id: props.id,
             email: email.val,
-            phone: phone.val,
+            phone: `+39 ${phone.val.toString()}`,
           })
         "
       >
@@ -47,16 +47,16 @@
       <div style="text-align: center" v-else>
         <h3>📞 {{ selectedContact.phone }}</h3>
         <h3>📧 {{ selectedContact.email }}</h3>
-        <BaseButton class="edit" mode="outline" @click="toggleForm"
-          >modifica</BaseButton
-        >
       </div>
-      <BaseButton link to="/contacts" mode="outline">indietro</BaseButton>
-      <BaseButton mode="delete" @click="contactsStore.deleteContact(props.id)"
-        >cancella</BaseButton
+      <BaseButton link to="/users" mode="outline">indietro</BaseButton>
+      <BaseButton class="edit" mode="outline" @click="toggleForm"
+        >modifica</BaseButton
       >
-    </div>
-  </BaseCard>
+      <BaseButton mode="delete" @click="contactsStore.deleteContact(props.id)"
+        >elimina contatto</BaseButton
+      >
+    </BaseCard>
+  </div>
 </template>
 
 <script setup>
@@ -67,12 +67,14 @@ import { reactive } from 'vue';
 const props = defineProps({ id: String });
 
 const contactsStore = useContactsStore();
-const selectedContact = contactsStore.contacts.find(
-  (contact) => contact.id === props.id
-);
+const url = window.location.pathname;
+const selectedContact = contactsStore.contacts.find((contact) => {
+  if (props.id) return contact.id === props.id;
+  else return contact.id === url.substring(url.lastIndexOf('/') + 1);
+});
 
 const email = reactive({ val: '', isValid: true });
-const phone = reactive({ val: '', isValid: true });
+const phone = reactive({ val: null, isValid: true });
 
 let formIsValid = reactive({ val: true });
 
@@ -98,7 +100,6 @@ const validateForm = (data) => {
 };
 
 const submitForm = (data) => {
-  console.log(data);
   validateForm(data);
   if (!formIsValid.val) return;
   contactsStore.updateContact(data);
@@ -113,6 +114,11 @@ const submitForm = (data) => {
 .contact {
   display: flex;
   flex-direction: column;
+  margin-top: 15vh;
+}
+form {
+  display: block;
+  text-align: center;
 }
 h2 {
   padding: 1rem;
@@ -131,5 +137,6 @@ h3 {
 }
 input {
   margin: 1rem;
+  padding: 0.5rem;
 }
 </style>

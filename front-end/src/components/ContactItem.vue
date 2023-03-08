@@ -54,12 +54,9 @@ h4 {
   margin-top: 2rem;
 }
 
-div {
-  margin: 0.5rem 0 0;
-}
-
 .contact {
   display: flex;
+  max-width: 25rem;
 }
 .contact__photo {
   width: 8rem;
