@@ -16,9 +16,9 @@ export const useContactsStore = defineStore('contacts', {
     async loadContacts() {
       this.$state.isLoading = true;
       try {
-        const res = await fetch(`http://localhost:3000/api/users`);
+        const res = await fetch(`http://localhost:3000/users`);
 
-        const { users } = await res.json();
+        const users = await res.json();
 
         if (!res.ok) {
           const error = new Error(data.message || 'Caricamento dati fallito');
@@ -33,7 +33,7 @@ export const useContactsStore = defineStore('contacts', {
             firstName: users[key].firstName,
             lastName: users[key].lastName,
             username: users[key].username,
-            email: users[key].email.toLowerCase(),
+            email: users[key].email,
             phone: users[key].phone,
             avatar: users[key].avatar,
           };
@@ -55,18 +55,22 @@ export const useContactsStore = defineStore('contacts', {
         avatar:
           'https://lh3.googleusercontent.com/TWVQZDj8WCdDcnyvvxFeEH0nJiGod_gTmPyQsMXZhFNEDdJXW2NtgIRrEfSEPn1H9CMvSZpjN41a8Qinq14I7wwgqOUjOay2f_yxOBM',
       };
-      const res = await fetch(`http://localhost:3000/api/users`, {
+      const res = await fetch(`http://localhost:3000/users`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(contactData),
       });
+      if (!res.ok) {
+        const error = new Error(data.message || 'Caricamento dati fallito');
+        throw error;
+      }
+
       this.loadContacts();
-      if (!res.ok) return;
       this.$state.formIsVisible = false;
     },
     async deleteContact(contactId) {
       // DELETE request to http://localhost:3000/api/users/ contactId ...
-      const res = await fetch(`http://localhost:3000/api/users/${contactId}`, {
+      const res = await fetch(`http://localhost:3000/users/${contactId}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
       });
@@ -75,28 +79,22 @@ export const useContactsStore = defineStore('contacts', {
         (el) => el.id === contactId
       );
       this.$state.contacts.splice(selectedContactIndex, 1);
-      router.replace('/contacts');
+      router.replace('/users');
       this.loadContacts();
     },
     async updateContact(formData) {
       // PATCH request to http://localhost:3000/api/users/contactId ...
-      const selectedContact = this.$state.contacts.filter(
-        (el) => el.id === formData.id
-      );
 
-      const updatedContact = { ...selectedContact, formData };
+      const changes = { email: formData.email, phone: formData.phone };
 
-      const res = await fetch(
-        `http://localhost:3000/api/users/${formData.id}`,
-        {
-          method: 'PATCH',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(updatedContact),
-        }
-      );
-      this.loadContacts();
+      const res = await fetch(`http://localhost:3000/users/${formData.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(changes),
+      });
       if (!res.ok) return;
-      router.replace('/contacts');
+      this.loadContacts();
+      router.replace('/users');
     },
   },
   getters: {

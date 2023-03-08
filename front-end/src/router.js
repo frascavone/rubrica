@@ -7,10 +7,10 @@ import ContactDetails from './components/ContactDetails.vue';
 export const router = createRouter({
   history: createWebHistory(),
   routes: [
-    { path: '/', redirect: '/contacts' },
-    { path: '/contacts', component: ContactsList },
+    { path: '/', redirect: '/users' },
+    { path: '/users', component: ContactsList },
     {
-      path: '/contacts/:id',
+      path: '/users/:id',
       component: ContactDetails,
       props: true,
     },

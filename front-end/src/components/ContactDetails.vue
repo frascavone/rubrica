@@ -47,7 +47,9 @@
       <div style="text-align: center" v-else>
         <h3>📞 {{ selectedContact.phone }}</h3>
         <h3>📧 {{ selectedContact.email }}</h3>
-        <BaseButton mode="outline" @click="toggleForm">modifica</BaseButton>
+        <BaseButton class="edit" mode="outline" @click="toggleForm"
+          >modifica</BaseButton
+        >
       </div>
       <BaseButton link to="/contacts" mode="outline">indietro</BaseButton>
       <BaseButton mode="delete" @click="contactsStore.deleteContact(props.id)"
@@ -78,7 +80,6 @@ const clearValidity = (input) => {
   input.isValid = true;
 };
 
-const updateData = {};
 const isEditing = reactive({ val: false });
 const toggleForm = () => {
   isEditing.val = !isEditing.val;
@@ -124,7 +125,8 @@ h3 {
 }
 .contact__photo {
   background-size: cover;
-  background-position: left;
+  background-position: center;
+  width: 100%;
   min-height: 20rem;
 }
 input {

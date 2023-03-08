@@ -52,7 +52,7 @@ import BaseCard from '../components/BaseCard.vue';
 import { useContactsStore } from '../store';
 import BaseSpinner from '../components/BaseSpinner.vue';
 import BaseDialog from '../components/BaseDialog.vue';
-import { onMounted, reactive } from 'vue';
+import { onMounted } from 'vue';
 import ContactForm from './ContactForm.vue';
 
 const emits = defineEmits(['showForm']);
