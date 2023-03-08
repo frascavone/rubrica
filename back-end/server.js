@@ -104,9 +104,7 @@ app.patch(
   '/api/users/:id',
   cors({ origin: 'http://localhost:5173' }),
   (req, res) => {
-    res.status(200).json({
-      data: { id: req.params.id },
-    });
+    res.status(200).json({ data: null });
   }
 );
 

@@ -1,5 +1,6 @@
 <template>
   <h4 v-if="contactsStore.contactAdded">Contatto aggiunto correttamente</h4>
+  <h4 v-if="contactsStore.contactUpdated">Contatto modificato correttamente</h4>
   <BaseDialog
     :show="!!contactsStore.error"
     title="ERRORE!"

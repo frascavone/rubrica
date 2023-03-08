@@ -34,13 +34,22 @@ a {
 }
 
 .outline {
+  text-align: center;
   background-color: transparent;
   border-color: black;
   color: black;
+  margin: 0.5rem;
 }
 .delete {
-  margin-top: 1rem;
+  margin: 0.5rem;
   background-color: brown;
   color: white;
+}
+
+.confirm {
+  text-align: center;
+  background-color: cadetblue;
+  color: white;
+  margin: 0.5rem;
 }
 </style>

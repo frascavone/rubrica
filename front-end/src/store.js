@@ -6,8 +6,10 @@ export const useContactsStore = defineStore('contacts', {
   state: () => ({
     contacts: [],
     isLoading: false,
+    isEditing: false,
     error: null,
     contactAdded: false,
+    contactUpdated: false,
     formIsVisible: false,
   }),
   actions: {
@@ -37,7 +39,6 @@ export const useContactsStore = defineStore('contacts', {
           };
           contacts.push(contact);
         }
-
         this.$state.contacts = contacts;
       } catch (error) {
         this.$state.error = error.message || 'Ops, qualcosa è andato storto';
@@ -59,9 +60,9 @@ export const useContactsStore = defineStore('contacts', {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(contactData),
       });
+      this.loadContacts();
       if (!res.ok) return;
       this.$state.formIsVisible = false;
-      this.loadContacts();
     },
     async deleteContact(contactId) {
       // DELETE request to http://localhost:3000/api/users/ contactId ...
@@ -77,21 +78,25 @@ export const useContactsStore = defineStore('contacts', {
       router.replace('/contacts');
       this.loadContacts();
     },
-    async updateContact(contactId, formData) {
+    async updateContact(formData) {
       // PATCH request to http://localhost:3000/api/users/contactId ...
       const selectedContact = this.$state.contacts.filter(
-        (el) => el.id === contactId
+        (el) => el.id === formData.id
       );
-      // ...
-      const res = await fetch(`http://localhost:3000/api/users/${contactId}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(changedContact),
-      });
+
+      const updatedContact = { ...selectedContact, formData };
+
+      const res = await fetch(
+        `http://localhost:3000/api/users/${formData.id}`,
+        {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(updatedContact),
+        }
+      );
+      this.loadContacts();
       if (!res.ok) return;
       router.replace('/contacts');
-      this.loadContacts();
-      console.log(`Contatto con id:${id} eliminato!`);
     },
   },
   getters: {

@@ -29,8 +29,8 @@ const props = defineProps({
   phone: { type: String },
   avatar: { type: String },
 });
-const route = useRoute();
-const contactLink = `${route.path}/${props.id}`;
+
+const contactLink = `${useRoute().path}/${props.id}`;
 </script>
 
 <style scoped>
